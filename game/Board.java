@@ -14,6 +14,34 @@ public class Board {
         this.height = height;
         iteration = 0;
     }
+
+    public void life() {
+        Set<Cell> next = new HashSet<>();
+        for (Cell cell : now) {
+            int numberOfNeighbors = count_neb(cell);
+            Cell next_cell = new Cell(cell.getX(), cell.getY());
+            if (cell.get_alive() && (numberOfNeighbors == 2 || numberOfNeighbors == 3)) {
+                next_cell.set_alive(true);
+                next.add(next_cell);
+            } else if (!cell.get_alive() && numberOfNeighbors == 3) {
+                next_cell.set_alive(true);
+                next.add(next_cell);
+            } else {
+                next_cell.set_alive(false);
+                next.add(next_cell);
+            }
+        }
+        if (UI.flag) {
+            iteration++;
+        }
+        if (!find(next)) {
+            replaceWithContentOf(next);
+            next.clear();
+        } else {
+            UI.flag = false;
+        }
+    }
+
     public int count_neb(Cell cell) {
         int count = 0;
         int x = cell.getX();
@@ -46,5 +74,4 @@ public class Board {
         }
         return count;
     }
-
 }
