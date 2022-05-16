@@ -42,6 +42,18 @@ public class Board {
         }
     }
 
+    public boolean find(Set<Cell> next) {
+        int found = 0;
+        for (Cell a : now) {
+            for (Cell b : next) {
+                if (a.getX() == b.getX() && a.getY() == b.getY() && a.get_alive() == b.get_alive()) {
+                    found++;
+                }
+            }
+        }
+        return found == now.size();
+    }
+
     public int count_neb(Cell cell) {
         int count = 0;
         int x = cell.getX();
@@ -74,4 +86,31 @@ public class Board {
         }
         return count;
     }
+
+    private void replaceWithContentOf(
+            Set<Cell> origin) {
+        now.clear();
+        now.addAll(origin);
+    }
+
+    public void set_now(int[][] table) {
+        now.clear();
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                Cell f = new Cell(i, j);
+                boolean flag1 = table[i][j] == 1;
+                f.set_alive(flag1);
+                now.add(f);
+            }
+        }
+    }
+
+    public Set<Cell> get_now() {
+        return now;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
 }
