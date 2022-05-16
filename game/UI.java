@@ -51,4 +51,35 @@ public class UI extends JPanel {
         add(a);
         add(c);
     }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setColor(Color.blue);
+        Dimension size = getSize();
+        Insets insets = getInsets();
+
+        int w = size.width - insets.left - insets.right;
+        int h = size.height - insets.top - insets.bottom;
+        int zoom = 20;
+        if (UI.flag) {
+            g2d.drawString("Iteration :" + Board.iteration, 130, 100);
+            for (Cell liveCell : wow.get_now()) {
+                int x = (liveCell.x * zoom) % w + w / 2;
+                int y = (liveCell.y * zoom) % h + 50;
+                if (liveCell.get_alive()) {
+                    g2d.drawRect(x, y, zoom, zoom);
+                    g2d.fillRect(x, y, zoom, zoom);
+                } else {
+                    g2d.clearRect(x, y, zoom, zoom);
+                }
+
+            }
+        } else {
+            g2d.drawString("FINISH!!!", 130, 100);
+        }
+    }
 }
