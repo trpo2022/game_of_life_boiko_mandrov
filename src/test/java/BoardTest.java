@@ -1,4 +1,4 @@
-package test;
+
 
 import game.Board;
 import game.Cell;

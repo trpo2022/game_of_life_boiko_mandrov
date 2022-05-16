@@ -1,4 +1,3 @@
-package test;
 
 import game.Board;
 import game.UI;
@@ -27,9 +26,10 @@ class UITest {
         UI a = new UI(f, 3, 3);
         Component[] components = a.getComponents();
         int count = 0;
-        for (Component ignored : components) {
+        for (Component ab : components) {
             count++;
+
         }
-        assertEquals(count, 4);
+        assertEquals(count, 3);
     }
 }
